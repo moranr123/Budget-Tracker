@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Budget Manager</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="formContainer">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="logo-text">
+                        <h2>Elite Budget</h2>
+                        <span>Financial Manager</span>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="budget-form">
+                <div class="form-group">
+                    <label for="titleDescription">
+                        <i class="fas fa-edit"></i>
+                        Description
+                    </label>
+                    <input type="text" id="titleDescription" placeholder="Enter description...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">
+                        <i class="fas fa-dollar-sign"></i>
+                        Amount
+                    </label>
+                    <input type="number" id="amount" placeholder="0.00" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="type">
+                        <i class="fas fa-tags"></i>
+                        Type
+                    </label>
+                    <select id="type">
+                        <option value="">Select Option</option>
+                        <option value="income">💰 Income</option>
+                        <option value="expense">💸 Expense</option>
+                    </select>
+                </div>
+                
+                <button type="button" id="submitBtn" class="submitBtn">
+                    <i class="fas fa-plus"></i>
+                    Add Transaction
+                </button>
+            </form>
+
+            <div class="summary-cards">
+                <div class="summary-card income-card">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Total Income</h4>
+                        <span id="totalIncome">₱0</span>
+                    </div>
+                </div>
+                
+                <div class="summary-card expense-card">
+                    <div class="card-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Total Expenses</h4>
+                        <span id="totalExpenses">₱0</span>
+                    </div>
+                </div>
+                
+                <div class="summary-card balance-card">
+                    <div class="card-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Balance</h4>
+                        <span id="totalBalance">₱0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="transactions-section">
+            <div class="transactions-header">
+                <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+                <div class="transactions-count">
+                    <span id="transactionCount">0</span> transactions
+                </div>
+            </div>
+            <div id="listOfTransactions" class="transactions-list">
+                <div class="empty-state">
+                    <i class="fas fa-receipt"></i>
+                    <h4>No transactions yet</h4>
+                    <p>Add your first transaction to get started!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
