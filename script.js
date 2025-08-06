@@ -9,6 +9,13 @@ const expenses = document.getElementById("totalExpenses");
 const totalBalance = document.getElementById("totalBalance");
 const transactionCount = document.getElementById("transactionCount");
 
+// Filter elements
+const dateFilter = document.getElementById("dateFilter");
+const clearFilter = document.getElementById("clearFilter");
+const todayFilter = document.getElementById("todayFilter");
+const weekFilter = document.getElementById("weekFilter");
+const monthFilter = document.getElementById("monthFilter");
+
 const months = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -21,8 +28,13 @@ let totalIncome = 0;
 let totalExpenses = 0;
 let Balance = 0;
 
+// Filter variables
+let currentFilter = 'today';
+let filteredData = [];
+
 function updateTransactionCount() {
-  transactionCount.textContent = savedData.length;
+  const count = filteredData.length > 0 ? filteredData.length : savedData.length;
+  transactionCount.textContent = count;
 }
 
 function hideEmptyState() {
@@ -33,20 +45,77 @@ function hideEmptyState() {
 }
 
 function showEmptyState() {
-  if (savedData.length === 0) {
+  const dataToCheck = filteredData.length > 0 ? filteredData : savedData;
+  if (dataToCheck.length === 0) {
     const existingEmptyState = document.querySelector('.empty-state');
     if (!existingEmptyState) {
       const emptyState = document.createElement('div');
       emptyState.className = 'empty-state';
       emptyState.innerHTML = `
         <i class="fas fa-receipt"></i>
-        <h4>No transactions yet</h4>
-        <p>Add your first transaction to get started!</p>
+        <h4>No transactions found</h4>
+        <p>${filteredData.length > 0 ? 'Try adjusting your filter settings.' : 'Add your first transaction to get started!'}</p>
       `;
       transactionsList.appendChild(emptyState);
     } else {
       existingEmptyState.style.display = 'block';
+      existingEmptyState.innerHTML = `
+        <i class="fas fa-receipt"></i>
+        <h4>No transactions found</h4>
+        <p>${filteredData.length > 0 ? 'Try adjusting your filter settings.' : 'Add your first transaction to get started!'}</p>
+      `;
     }
+  }
+}
+
+function applyDateFilter() {
+  const today = new Date();
+  const selectedDate = dateFilter.value ? new Date(dateFilter.value) : null;
+  
+  filteredData = savedData.filter(item => {
+    const itemDate = new Date(item.date);
+    
+    switch(currentFilter) {
+      case 'today':
+        return itemDate.toDateString() === today.toDateString();
+      case 'week':
+        const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+        return itemDate >= weekAgo && itemDate <= today;
+      case 'month':
+        return itemDate.getMonth() === today.getMonth() && 
+               itemDate.getFullYear() === today.getFullYear();
+      case 'custom':
+        return selectedDate ? itemDate.toDateString() === selectedDate.toDateString() : true;
+      default:
+        return true;
+    }
+  });
+  
+  renderSavedData();
+}
+
+function updateFilterButtons() {
+  // Remove active class from all buttons
+  [clearFilter, todayFilter, weekFilter, monthFilter].forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Add active class to current filter button
+  switch(currentFilter) {
+    case 'today':
+      todayFilter.classList.add('active');
+      break;
+    case 'week':
+      weekFilter.classList.add('active');
+      break;
+    case 'month':
+      monthFilter.classList.add('active');
+      break;
+    case 'custom':
+      clearFilter.classList.add('active');
+      break;
+    default:
+      clearFilter.classList.add('active');
   }
 }
 
@@ -55,7 +124,9 @@ function renderSavedData() {
   totalIncome = 0;
   totalExpenses = 0;
 
-  if (savedData.length === 0) {
+  const dataToRender = filteredData.length > 0 ? filteredData : savedData;
+
+  if (dataToRender.length === 0) {
     showEmptyState();
     updateTransactionCount();
     updateDisplay();
@@ -64,7 +135,7 @@ function renderSavedData() {
 
   hideEmptyState();
 
-  savedData.forEach((item) => {
+  dataToRender.forEach((item) => {
     createTransactionElement(item);
     if (item.type === "income") {
       totalIncome += parseInt(item.amount);
@@ -168,6 +239,41 @@ document.addEventListener('keypress', function (e) {
   }
 });
 
+// Filter event listeners
+clearFilter.addEventListener("click", function() {
+  currentFilter = 'all';
+  filteredData = [];
+  dateFilter.value = '';
+  updateFilterButtons();
+  renderSavedData();
+});
+
+todayFilter.addEventListener("click", function() {
+  currentFilter = 'today';
+  updateFilterButtons();
+  applyDateFilter();
+});
+
+weekFilter.addEventListener("click", function() {
+  currentFilter = 'week';
+  updateFilterButtons();
+  applyDateFilter();
+});
+
+monthFilter.addEventListener("click", function() {
+  currentFilter = 'month';
+  updateFilterButtons();
+  applyDateFilter();
+});
+
+dateFilter.addEventListener("change", function() {
+  if (dateFilter.value) {
+    currentFilter = 'custom';
+    updateFilterButtons();
+    applyDateFilter();
+  }
+});
+
 const reset = () => {
   description.value = "";
   amountInput.value = "";
@@ -211,10 +317,16 @@ function addInputs() {
   //  Save to localStorage
   localStorage.setItem("transactions", JSON.stringify(savedData));
 
-  hideEmptyState();
-  createTransactionElement(newTransaction);
-  updateDisplay();
-  updateTransactionCount();
+  // Apply current filter to new data
+  if (currentFilter !== 'all') {
+    applyDateFilter();
+  } else {
+    hideEmptyState();
+    createTransactionElement(newTransaction);
+    updateDisplay();
+    updateTransactionCount();
+  }
+  
   showNotification("Transaction added successfully!", "success");
   reset();
 }
@@ -223,7 +335,9 @@ function recalculateTotals() {
   totalIncome = 0;
   totalExpenses = 0;
 
-  savedData.forEach((item) => {
+  const dataToCalculate = filteredData.length > 0 ? filteredData : savedData;
+  
+  dataToCalculate.forEach((item) => {
     if (item.type === "income") {
       totalIncome += parseInt(item.amount);
     } else {
@@ -318,3 +432,5 @@ document.head.appendChild(style);
 
 //  Initial render from localStorage
 renderSavedData();
+updateFilterButtons();
+applyDateFilter();

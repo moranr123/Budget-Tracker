@@ -95,6 +95,37 @@
                     <span id="transactionCount">0</span> transactions
                 </div>
             </div>
+            
+            <div class="filter-section">
+                <div class="filter-controls">
+                    <div class="date-filter">
+                        <label for="dateFilter">
+                            <i class="fas fa-calendar-alt"></i>
+                            Filter by Date
+                        </label>
+                        <input type="date" id="dateFilter" class="date-input">
+                    </div>
+                    <div class="filter-buttons">
+                        <button type="button" id="clearFilter" class="filter-btn">
+                            <i class="fas fa-times"></i>
+                            Clear Filter
+                        </button>
+                        <button type="button" id="todayFilter" class="filter-btn active">
+                            <i class="fas fa-calendar-day"></i>
+                            Today
+                        </button>
+                        <button type="button" id="weekFilter" class="filter-btn">
+                            <i class="fas fa-calendar-week"></i>
+                            This Week
+                        </button>
+                        <button type="button" id="monthFilter" class="filter-btn">
+                            <i class="fas fa-calendar-alt"></i>
+                            This Month
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
             <div id="listOfTransactions" class="transactions-list">
                 <div class="empty-state">
                     <i class="fas fa-receipt"></i>

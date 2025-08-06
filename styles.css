@@ -482,6 +482,107 @@ body::before {
     box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
 
+/* Filter Section Styles */
+.filter-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.date-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.date-filter label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+}
+
+.date-filter label i {
+    color: #ff6b6b;
+    width: 18px;
+    filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.3));
+}
+
+.date-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-family: inherit;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-btn {
+    padding: 12px 20px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.filter-btn:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    color: white;
+    border-color: #ff6b6b;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.filter-btn i {
+    font-size: 12px;
+}
+
 /* Animations */
 @keyframes slideIn {
     from {
@@ -512,28 +613,235 @@ body::before {
         padding: 10px;
     }
     
+    .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 100%;
+    }
+    
     .formContainer,
     .transactions-section {
         padding: 20px;
         border-radius: 16px;
+        margin-bottom: 15px;
+    }
+    
+    .header {
+        margin-bottom: 30px;
+    }
+    
+    .logo {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .logo i {
+        font-size: 32px;
+    }
+    
+    .logo-text h2 {
+        font-size: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 16px 20px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 12px;
+    }
+    
+    .submitBtn {
+        padding: 18px 24px;
+        font-size: 16px;
+        border-radius: 12px;
     }
     
     .summary-cards {
         flex-direction: column;
+        gap: 15px;
+    }
+    
+    .summary-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        margin-right: 16px;
+    }
+    
+    .card-content h4 {
+        font-size: 12px;
+    }
+    
+    .card-content span {
+        font-size: 20px;
+    }
+    
+    .transactions-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .transactions-header h3 {
+        font-size: 22px;
+    }
+    
+    .filter-section {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .filter-controls {
+        gap: 16px;
+    }
+    
+    .date-input {
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+    
+    .filter-buttons {
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        gap: 6px;
+    }
+    
+    .filter-btn i {
+        font-size: 11px;
     }
     
     .transactionStyle {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
+        padding: 20px;
     }
     
     .transaction-info {
         width: 100%;
+        gap: 15px;
+    }
+    
+    .transaction-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+    
+    .transaction-details h4 {
+        font-size: 16px;
+    }
+    
+    .transaction-details p {
+        font-size: 13px;
     }
     
     .transaction-amount {
         align-self: flex-end;
         margin-right: 0;
+    }
+    
+    .transaction-amount .amount {
+        font-size: 18px;
+    }
+    
+    .delete-btn {
+        align-self: flex-end;
+        padding: 8px 14px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+    
+    .formContainer,
+    .transactions-section {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .logo-text h2 {
+        font-size: 20px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+    
+    .submitBtn {
+        padding: 16px 20px;
+        font-size: 15px;
+    }
+    
+    .summary-card {
+        padding: 16px;
+    }
+    
+    .card-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        margin-right: 12px;
+    }
+    
+    .card-content span {
+        font-size: 18px;
+    }
+    
+    .transactions-header h3 {
+        font-size: 20px;
+    }
+    
+    .filter-section {
+        padding: 12px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .transactionStyle {
+        padding: 16px;
+    }
+    
+    .transaction-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+    
+    .transaction-details h4 {
+        font-size: 15px;
+    }
+    
+    .transaction-amount .amount {
+        font-size: 16px;
     }
 }
