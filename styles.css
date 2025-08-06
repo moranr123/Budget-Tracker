@@ -608,9 +608,59 @@ body::before {
     }
 }
 
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific styles */
+    .form-group input,
+    .form-group select,
+    .date-input {
+        -webkit-appearance: none;
+        appearance: none;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 2px solid rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+        font-size: 16px !important;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .date-input:focus {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: #ff6b6b !important;
+        box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1) !important;
+    }
+    
+    .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    .formContainer,
+    .transactions-section,
+    .filter-section {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .summary-card {
+        background: rgba(255, 255, 255, 0.08) !important;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    
+    .transactionStyle {
+        background: rgba(255, 255, 255, 0.06) !important;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+}
+
+/* Enhanced mobile styles for better iOS compatibility */
 @media (max-width: 768px) {
     body {
         padding: 10px;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
     }
     
     .container {
@@ -624,6 +674,10 @@ body::before {
         padding: 20px;
         border-radius: 16px;
         margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
     
     .header {
@@ -653,12 +707,34 @@ body::before {
         padding: 16px 20px;
         font-size: 16px; /* Prevents zoom on iOS */
         border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #ff6b6b;
+        box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+    }
+    
+    .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
     }
     
     .submitBtn {
         padding: 18px 24px;
         font-size: 16px;
         border-radius: 12px;
+        background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        border: none;
+        color: white;
+        font-weight: 700;
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .summary-cards {
@@ -669,6 +745,10 @@ body::before {
     .summary-card {
         padding: 20px;
         border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .card-icon {
@@ -699,6 +779,9 @@ body::before {
     .filter-section {
         padding: 16px;
         margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     
     .filter-controls {
@@ -708,6 +791,11 @@ body::before {
     .date-input {
         padding: 14px 16px;
         font-size: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .filter-buttons {
@@ -718,6 +806,11 @@ body::before {
         padding: 10px 16px;
         font-size: 13px;
         gap: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .filter-btn i {
@@ -729,6 +822,9 @@ body::before {
         align-items: flex-start;
         gap: 12px;
         padding: 20px;
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     
     .transaction-info {
@@ -763,18 +859,29 @@ body::before {
         align-self: flex-end;
         padding: 8px 14px;
         font-size: 11px;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+        border: none;
+        color: white;
+        -webkit-appearance: none;
+        appearance: none;
     }
 }
 
 @media (max-width: 480px) {
     body {
         padding: 8px;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
     }
     
     .formContainer,
     .transactions-section {
         padding: 16px;
         border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
     
     .logo-text h2 {
@@ -785,15 +892,41 @@ body::before {
     .form-group select {
         padding: 14px 16px;
         font-size: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #ff6b6b;
+        box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+    }
+    
+    .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
     }
     
     .submitBtn {
         padding: 16px 20px;
         font-size: 15px;
+        background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        border: none;
+        color: white;
+        font-weight: 700;
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .summary-card {
         padding: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .card-icon {
@@ -813,6 +946,9 @@ body::before {
     
     .filter-section {
         padding: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     
     .filter-buttons {
@@ -825,10 +961,18 @@ body::before {
         justify-content: center;
         padding: 12px 16px;
         font-size: 14px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        -webkit-appearance: none;
+        appearance: none;
     }
     
     .transactionStyle {
         padding: 16px;
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     
     .transaction-icon {
